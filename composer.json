@@ -1,0 +1,17 @@
+{
+    "name": "adistwn",
+    "description": "a simple slim framework",
+    "require": {
+        "slim/slim": "^3.0",
+        "illuminate/database": "^6.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+     "autoload": {
+        "psr-4": {
+            "Routes\\" : "routes",
+            "App\\" : "app"
+        }
+    }
+}
