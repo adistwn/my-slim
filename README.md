@@ -14,10 +14,9 @@ $ cd public && php -S localhost:8000
 
 ## Routes
 - /store
-
 Create new user
 - /auth
-
 Check login
 
+## License
 The Slim Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
