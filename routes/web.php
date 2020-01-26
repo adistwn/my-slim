@@ -44,11 +44,11 @@ class Web
             
             $input = $request->getParsedBody();
 
-            $v = new Validator($input);
-            $v->rule('required', ['name','username','password','email']);
-            $v->rule('email', 'email');
+            $validate = new Validator($input);
+            $validate->rule('required', ['name','username','password','email']);
+            $validate->rule('email', 'email');
 
-            if ($v->validate()) {
+            if ($validate->validate()) {
 
                 $exist_email = User::where('email',$input['email'])->first();
                 if ($exist_email) {
@@ -93,14 +93,73 @@ class Web
             } else {
 
                 $result = [
-                    'error'   => false,
-                    'message' => $v->errors(),
+                    'error'   => true,
+                    'message' => $validate->errors(),
                     'data'    => []
                 ];
             }
-            return $response->withJson($result);
+            return $response->withJson($result, 200, JSON_PRETTY_PRINT);
         });
         
+        /**
+         * Check login
+         * 
+         * @param string username
+         * @param string password
+         * 
+         * @return json
+         */
+        $app->post('/auth', function (Request $request, Response $response) {
+
+            $input = $request->getParsedBody();
+
+            $validate = new Validator($input);
+            $validate->rule('required', ['username', 'password']);
+            
+            if ($validate->validate()) {
+
+                $user = User::where('username', $input['username'])->first();
+                if ($user) {
+
+                    if (password_verify($input['password'], $user->password)) {
+
+                        $result = [
+                            'error'   => false,
+                            'message' => 'You have successfully logged in',
+                            'data'    => []
+                        ];
+
+                    } else {
+
+                        $result = [
+                            'error'   => true,
+                            'message' => 'Invalid username or password',
+                            'data'    => []
+                        ];
+                    }
+
+                } else {
+
+                    $result = [
+                        'error'   => true,
+                        'message' => 'Invalid username or password',
+                        'data'    => []
+                    ];
+
+                }
+
+
+            } else {
+
+                $result = [
+                    'error'   => true,
+                    'message' => $validate->errors(),
+                    'data'    => []
+                ];
+            }
+            return $response->withJson($result, 200, JSON_PRETTY_PRINT);
+
+        });
 
         return $app;
     }
