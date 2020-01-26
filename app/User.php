@@ -11,14 +11,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class User extends Model
 {
     /**
      * Define table name
      *
      * @var string
      */
-    protected $table = 'users';
+    // protected $table = 'users';
 
     /**
      * hidden 
@@ -35,8 +35,13 @@ class Users extends Model
     protected $fillable = [
         'id',
         'name',
+        'username',
+        'password',
         'email',
-        'password'
+        'token',
+        'valid_email',
+        'created_at',
+        'updated_at',
     ];
 
 }
