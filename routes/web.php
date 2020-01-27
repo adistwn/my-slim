@@ -12,6 +12,9 @@ use App\User;
 use Valitron\Validator;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Firebase\JWT\JWT;
+
+
 
 class Web
 {
@@ -26,6 +29,7 @@ class Web
          * Default route
          */
         $app->get('/', function (Request $request, Response $response) {
+
             $result = User::all();
             return $response->withJson($result, 200, JSON_PRETTY_PRINT);
         });
@@ -123,10 +127,23 @@ class Web
 
                     if (password_verify($input['password'], $user->password)) {
 
+                        $key = "your_secret";
+                        $payload = array(
+                            "iss" => "localhost",
+                            "aud" => "localhost",
+                            "iat" => 1356999524,
+                            "nbf" => 1357000000
+                        );
+                        $jwt = JWT::encode($payload, $key);
+                        $user->token = $jwt;
+                        $user->save();
+
                         $result = [
                             'error'   => false,
                             'message' => 'You have successfully logged in',
-                            'data'    => []
+                            'data'    => [
+                                'token' => $jwt,
+                            ]
                         ];
 
                     } else {

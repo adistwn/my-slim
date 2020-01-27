@@ -4,7 +4,8 @@
     "require": {
         "slim/slim": "^3.0",
         "illuminate/database": "^6.12",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "firebase/php-jwt": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
