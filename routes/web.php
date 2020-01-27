@@ -9,10 +9,10 @@
 namespace Routes;
 
 use App\User;
+use \Firebase\JWT\JWT;
 use Valitron\Validator;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Firebase\JWT\JWT;
 
 
 
@@ -176,6 +176,19 @@ class Web
             }
             return $response->withJson($result, 200, JSON_PRETTY_PRINT);
 
+        });
+
+        $app->get('/valid', function (Request $request, Response $response) {
+
+            $key = "your_secret";
+            $jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ8.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjEzNTY5OTk1MjQsIm5iZiI6MTM1NzAwMDAwMH0.E5ytpe6fEfzu4Ej04cu0q61cNy6NtugUMb12VMhLdo4";
+            
+            $decoded = JWT::decode($jwt, $key, array('HS256'));
+            if ($decoded) {
+                echo 'OK';
+            } else {
+                echo 'NOT OKE';
+            }
         });
 
         return $app;
