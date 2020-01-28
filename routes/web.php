@@ -9,8 +9,8 @@
 namespace Routes;
 
 use App\User;
-use \Valitron\Validator;
 use App\Controllers\Jwt;
+use \Valitron\Validator;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
