@@ -136,15 +136,16 @@ class Web
 
                     if (password_verify($input['password'], $user->password)) {
 
-                        $jwt = $this->generateToken($user->id);
-                        $user->token = $jwt;
+                        $tokenJwt = (string) Web::generateToken($user->id);
+
+                        $user->token = $tokenJwt;
                         $user->save();
 
                         $result = [
                             'error'   => false,
                             'message' => 'You have successfully logged in',
                             'data'    => [
-                                'token' => $jwt,
+                                'token' => $tokenJwt
                             ]
                         ];
 
