@@ -1,7 +1,5 @@
 <?php
 /**
- * using PSR-4
- * 
  * @package Slim ^3.0
  */
 
