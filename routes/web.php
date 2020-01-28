@@ -168,7 +168,6 @@ class Web
 
                 }
 
-
             } else {
 
                 $result = [
@@ -181,7 +180,7 @@ class Web
 
         });
 
-        return $app;
+        return $app->run();
     }
 
     /**

@@ -8,4 +8,4 @@ require '../vendor/autoload.php';
 include '../database/config.php';
 
 $app = new Routes\Web();
-$app->routes()->run();
+$app->routes();
