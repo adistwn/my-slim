@@ -3,9 +3,9 @@
  * @package Slim ^3.0
  */
 
-require '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
-include '../database/config.php';
+require __DIR__.'/../database/config.php';
 
 $app = new Routes\Web();
 $app->routes();
